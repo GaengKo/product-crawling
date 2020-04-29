@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 #url = 'https://cart.coupang.com/cartView.pang'
 #url = 'https://code.plus/lecture/12'
 page_num = 0
-keyword = 'table'
+keyword = 'chair'
 url = 'https://www.amazon.com/s?k='+keyword+'&page='+str(page_num)+'&qid=1587970743&ref=sr_pg_'+str(page_num)
 print(str(os.getcwd())+'/chromedriver.exe')
 DRIVER_DIR = str(os.getcwd())+'/chromedriver.exe'
@@ -56,8 +56,9 @@ while page_num < 7:
             print(rating)
             review = subject[i].find('span',class_='a-size-base').get_text()
             print(review)
-            image = subject[i].find('img')
-            print(image)
+            image = subject[i].find('img').get('src')
+            #print(image.get('src'))
+
         #print(image.get_attribute())
             data.append(product)
             data.append(rating)
@@ -66,8 +67,9 @@ while page_num < 7:
             result.append(data)
         except:
             continue
+
     #print(html)
-with open('./table.csv','w',-1,'utf-8',newline='') as f:
+with open('./'+keyword+'_1.csv','w',-1,'utf-8',newline='') as f:
     wt = csv.writer(f)
     wt.writerows(result)
 
