@@ -2,6 +2,7 @@ import time
 import os
 from selenium import webdriver
 from bs4 import BeautifulSoup
+
 import csv
 import pyautogui
 
@@ -12,7 +13,8 @@ from selenium.webdriver.common.keys import Keys
 #url = 'https://cart.coupang.com/cartView.pang'
 #url = 'https://code.plus/lecture/12'
 page_num = 0
-keyword = 'chair'
+keyword = 'living table'
+#keyword = input('검색 키워드 입력 :')
 url = 'https://www.amazon.com/s?k='+keyword+'&page='+str(page_num)+'&qid=1587970743&ref=sr_pg_'+str(page_num)
 print(str(os.getcwd())+'/chromedriver.exe')
 DRIVER_DIR = str(os.getcwd())+'/chromedriver.exe'
@@ -54,8 +56,12 @@ while page_num < 7:
             print(product)
             rating =  subject[i].find('span',class_='a-icon-alt').get_text()
             print(rating)
-            review = subject[i].find('span',class_='a-size-base').get_text()
+            review = subject[i].find_all('span',class_='a-size-base')
+            for j in review:
+                if (j.get_text()).replace(',','').isdigit():
+                    review = j.get_text()
             print(review)
+
             image = subject[i].find('img').get('src')
             #print(image.get('src'))
 
