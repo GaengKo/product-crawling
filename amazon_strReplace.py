@@ -2,19 +2,24 @@ import pandas as pd
 import csv
 import matplotlib.pyplot as plt
 
-keyword = 'living table'
-f = open('./amazon_review/Roborock S5 Robot Vacuum and Mop, 2000Pa Super Power Suction &Wi-Fi Connectivity and Smart Navigating Robotic Vacuum Cleaner with 5200mAh Battery Capacity for Pet Hair, Carpet & Hard Floor (White).xlsx','r',encoding='CP949')
+keyword = 'roborock'
+f = open('./amazon_review/Roborock S5 Robot.xlsx','r',encoding='cp949')
 rdr = csv.reader(f)
 word = {}
+rdr = pd.read_excel('./amazon_review/Roborock S5 Robot.xlsx')
+print(rdr.head)
+print('')
 for line in rdr:
-    if line[0] == 'title':
-        print('첫 줄')
+    if line[0] != 'title':
+        print(line)
     else:
+        print(str(line))
         temp = pd.DataFrame({'memo':str(line[0])},index=[0])
+        print(temp)
         temp['memo'] = temp['memo'].str.replace(pat=r'[^A-Za-z0-9]', repl=r' ', regex=True)
         temp['memo'] = temp['memo'].str.replace(pat=r'[\s\s+]', repl=r' ', regex=True)
         temp = temp['memo'][0].lower().split()
-
+        print(temp)
         for i in temp:
             if i in word:
                 word[i] = word[i] + int(line[2].replace(',',''))
