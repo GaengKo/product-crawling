@@ -2,31 +2,29 @@ import pandas as pd
 import csv
 import matplotlib.pyplot as plt
 
-keyword = 'roborock'
-f = open('./amazon_review/Roborock S5 Robot.xlsx','r',encoding='cp949')
+keyword = 'roborock S5 Robot'
+f = open('./amazon_review/'+keyword+'.xlsx','r',encoding='cp949')
 rdr = csv.reader(f)
 word = {}
 rdr = pd.read_excel('./amazon_review/Roborock S5 Robot.xlsx')
 
 print(rdr.iloc[0,1])
 print(len(rdr))
+asdasdasd = 0
 for i in range(len(rdr)):
     line = rdr.iloc[i,:]
     print(line)
     if line[0] == 'title' or float(line[1].split(' ')[0]) > 2:
         print(line[0])
     else:
-        print('123123123')
-        print(str(line))
-        temp = pd.DataFrame({'memo':str(line[2])},index=[0])
-        print('123123123')
-        print(temp)
+        asdasdasd = asdasdasd + 1
+        string_temp = str(line[0]+' '+str(line[2]))
+        temp = pd.DataFrame({'memo':string_temp},index=[0])
+
         temp['memo'] = temp['memo'].str.replace(pat=r'[^A-Za-z0-9]', repl=r' ', regex=True)
         temp['memo'] = temp['memo'].str.replace(pat=r'[\s\s+]', repl=r' ', regex=True)
         temp = temp['memo'][0].lower().split()
 
-        print('1231231234')
-        print(temp)
 
         for i in temp:
             if i in word:
@@ -36,8 +34,17 @@ for i in range(len(rdr)):
 
 
 print(word)
+f2 = open("except_word.txt",'r')
+lines = f2.readlines()
+for line in lines:
+    print(line)
+    try:
+        del word[str(line).split('\n')[0]]
+    except Exception as e:
+        print(e)
+f2.close()
 word = sorted(word.items(),reverse=True,key=lambda item:item[1])
-with open('./'+keyword+'_1.txt','w',-1,'utf-8',newline='') as f:
+with open('./'+keyword+'_'+str(asdasdasd)+'__'+str(len(rdr))+'_word.txt','w',-1,'utf-8',newline='') as f:
     wt = csv.writer(f)
     wt.writerows(word)
 """

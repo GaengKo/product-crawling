@@ -19,7 +19,7 @@ driver.implicitly_wait(1)
 result = []
 driver.get(url)
 driver.implicitly_wait(10)
-
+print('제품 페이지를 선택한 후 아무 키와 엔터를 누르면 크롤링을 시작합니다 : ')
 a = input()
 
 html = driver.page_source
