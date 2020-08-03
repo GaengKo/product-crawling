@@ -67,7 +67,7 @@ while True:
         if driver.find_element_by_xpath('//*[@id="cm_cr-pagination_bar"]/ul/li[2]/a').is_enabled():
             driver.find_element_by_xpath('//*[@id="cm_cr-pagination_bar"]/ul/li[2]/a').click()
         else:
-            break;
+            break
         time.sleep(1)
     except Exception as e:
         print(e)
