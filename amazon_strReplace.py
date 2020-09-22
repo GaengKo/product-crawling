@@ -24,7 +24,7 @@ for i in range(len(rdr)):
         pass
     else:
         asdasdasd = asdasdasd + 1
-        string_temp = str(line[0]+' '+str(line[2]))
+        string_temp = str(str(line[0])+' '+str(line[2]))
         temp = pd.DataFrame({'memo':string_temp},index=[0])
 
         temp['memo'] = temp['memo'].str.replace(pat=r'[^A-Za-z0-9]', repl=r' ', regex=True)
